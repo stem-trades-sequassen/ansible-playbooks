@@ -1,0 +1,31 @@
+all:
+  children:
+    stem_trades:
+    # Under the main children tag, you can have inventory groups for different areas if it comes around to managing them as well
+    # See below as we can have tags for handicrafts, specialty programs, and more
+      children:
+        # STEM/Trades Windows Laptops
+        windows:
+          hosts:
+            # Individual laptop IDs
+            stem_pc_01:
+              ansible_host: stem-pc-01 # Utilize Tailscale MagicDNS hostname for best results
+              ansible_user: SeqUser       # SSH username
+              ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+              ansible_shell_type: cmd
+
+            stem_pc_02:
+              ansible_host: stem-pc-02
+              ansible_user: director
+              ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+              ansible_shell_type: cmd
+            # These blocks are copy-pastable in order to iterate new laptops or hardware in the inventory.
+            # Simply replace identifiers (stem_pc_XX) and the ansible_host key (stem-pc-XX)
+            # Do note that ansible inventory tags do not support hyphenation, so we use underscores.
+        servers:
+          hosts:
+            stem_server:
+              ansible_host: stem-server # Utilize Tailscale MagicDNS hostname for best results
+              ansible_user: director       # SSH username
+              ansible_port: 22            # SSH port (default: 22)
+              ansible_ssh_private_key_file: ~/.ssh/id_ed25519
